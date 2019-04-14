@@ -143,7 +143,7 @@ export default class DataDOM<T extends DataStructure> {
     public render(structure: T, parentEl: HTMLElement): T {
         return render(this.createElement, structure, parentEl);
     }
-    public update(prevStructure: T | T[], nextStructure: T | T[], parentStructure: T) {
+    public update(prevStructure: T | T[], nextStructure: T | T[], parentStructure?: T) {
         update(
             this.createElement,
             this.updateElement,
