@@ -93,10 +93,10 @@ export function update<T extends DataStructure>(
         prevStructures as T[],
         nextStructures || [],
         (prev, next, index) => {
+            next.element = prev.element;
             if (next.ref) {
                 next.ref(next, index);
             }
-            next.element = prev.element;
             updateElement(prev, next);
             update(
                 createElement,
