@@ -1,0 +1,40 @@
+{
+  "name": "data-dom",
+  "version": "0.0.4",
+  "description": "data dom",
+  "main": "./dist/datadom.js",
+  "module": "./dist/datadom.esm.js",
+  "sideEffects": false,
+  "types": "declaration/index.d.ts",
+  "scripts": {
+    "start": "rollup -c -w",
+    "build": "rollup -c && npm run declaration && print-sizes ./dist",
+    "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json",
+    "doc": "rm -rf ./doc && jsdoc -c jsdoc.json",
+    "prerelease": "npm run build && prerelease",
+    "release": "npm run build && npm run doc && release",
+    "release:init": "npm run build && release -i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daybrush/data-dom.git"
+  },
+  "author": "Daybrush",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daybrush/data-dom/issues"
+  },
+  "homepage": "https://github.com/daybrush/data-dom#readme",
+  "dependencies": {
+    "@daybrush/utils": "^0.7.1"
+  },
+  "devDependencies": {
+    "@daybrush/builder": "0.0.5",
+    "@daybrush/jsdoc": "^0.3.7",
+    "@daybrush/release": "^0.1.1",
+    "daybrush-jsdoc-template": "^1.5.3",
+    "print-sizes": "0.0.4",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.3"
+  }
+}
