@@ -14,6 +14,7 @@ function render<T extends DataStructure>(
     const { children } = structure;
     const el = createElement(structure);
 
+    structure.element = el;
     if (structure.ref) {
         structure.ref(structure, parentStructureIndex);
     }
@@ -28,8 +29,6 @@ function render<T extends DataStructure>(
         });
     }
     parentEl && parentEl.appendChild(el);
-
-    structure.element = el;
     return structure;
 }
 

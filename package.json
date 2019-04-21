@@ -1,6 +1,6 @@
 {
   "name": "data-dom",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "data dom",
   "main": "./dist/datadom.js",
   "module": "./dist/datadom.esm.js",
@@ -10,9 +10,8 @@
     "start": "rollup -c -w",
     "build": "rollup -c && npm run declaration && print-sizes ./dist",
     "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json",
-    "doc": "rm -rf ./doc && jsdoc -c jsdoc.json",
     "prerelease": "npm run build && prerelease",
-    "release": "npm run build && npm run doc && release",
+    "release": "npm run build && release",
     "release:init": "npm run build && release -i"
   },
   "repository": {
