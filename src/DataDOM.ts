@@ -125,7 +125,10 @@ export function update<T extends DataStructure>(
             });
 
             for (let i = max; i >= min; --i) {
-                parentElement.insertBefore(nextStructure[i].element, nextStructure[i + 1].element);
+                parentElement.insertBefore(
+                    nextStructure[i].element,
+                    nextStructure[i + 1] && nextStructure[i + 1].element,
+                );
             }
         } else {
             added.forEach(index => {
