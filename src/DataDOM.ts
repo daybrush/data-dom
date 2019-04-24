@@ -110,22 +110,41 @@ export function update<T extends DataStructure>(
     if (parentStructure) {
         const parentElement = parentStructure.element;
 
-        changed.forEach(([from, to]) => {
-            parentElement.insertBefore(nextStructures[to].element, nextStructures[to + 1].element);
-        });
         removed.reverse().forEach(index => {
             parentElement.removeChild(prevStructures[index].element);
         });
-        added.forEach(index => {
-            const { element } = render(
-                createElement,
-                nextStructures[index],
-            );
-            parentElement.insertBefore(
-                element,
-                nextStructures[index + 1] && nextStructures[index + 1].element,
-            );
-        });
+        if (changed.length) {
+            let min = Infinity;
+            let max = -1;
+
+            changed.forEach(([from, to]) => {
+                min = Math.min(min, to);
+                max = Math.max(max, to);
+            });
+            added.forEach(index => {
+                render(
+                    createElement,
+                    nextStructures[index],
+                );
+                min = Math.min(min, index);
+                max = Math.max(max, index);
+            });
+
+            for (let i = max; i >= min; --i) {
+                parentElement.insertBefore(nextStructure[i].element, nextStructure[i + 1].element);
+            }
+        } else {
+            added.forEach(index => {
+                const { element } = render(
+                    createElement,
+                    nextStructures[index],
+                );
+                parentElement.insertBefore(
+                    element,
+                    nextStructures[index + 1] && nextStructures[index + 1].element,
+                );
+            });
+        }
 
         if (nextStructure) {
             parentStructure.children = (nextStructure as T);
