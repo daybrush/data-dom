@@ -8,8 +8,8 @@ function concat<T>(arr: T | T[]): T[] {
 function render<T extends DataStructure>(
     createElement: (structure: T) => HTMLElement,
     structure: T,
-    parentEl?: Element,
     parentStructureIndex: number = 0,
+    parentEl?: Element,
 ): T {
     const { children } = structure;
     const el = createElement(structure);
@@ -23,8 +23,8 @@ function render<T extends DataStructure>(
             render(
                 createElement,
                 child,
-                el,
                 i,
+                el,
             );
         });
     }
@@ -118,6 +118,7 @@ export function update<T extends DataStructure>(
                 render(
                     createElement,
                     nextStructures[index],
+                    index,
                 );
                 min = Math.min(min, index);
                 max = Math.max(max, index);
@@ -131,6 +132,7 @@ export function update<T extends DataStructure>(
                 const { element } = render(
                     createElement,
                     nextStructures[index],
+                    index,
                 );
                 parentElement.insertBefore(
                     element,
@@ -152,7 +154,7 @@ export default class DataDOM<T extends DataStructure> {
     ) {
     }
     public render(structure: T, parentEl: HTMLElement): T {
-        return render(this.createElement, structure, parentEl);
+        return render(this.createElement, structure, 0, parentEl);
     }
     public update(prevStructure: T | T[], nextStructure: T | T[], parentStructure?: T) {
         update(
