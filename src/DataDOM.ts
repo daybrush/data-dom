@@ -68,14 +68,7 @@ function compare<T extends DataStructure>(
         return a[1] > b[1] ? 1 : -1;
       });
 
-    const newChanged: number[][] = [];
-    let prev = [-1, -1];
-    changed.forEach(changeInfo => {
-        if (prev[0] > changeInfo[0]) {
-          newChanged.push(prev);
-        }
-        prev = changeInfo;
-    });
+    const newChanged: number[][] = changed.filter(changeInfo => changeInfo[1] < changeInfo[0]);
 
     return {added, removed, changed: newChanged};
 }
