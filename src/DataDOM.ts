@@ -79,6 +79,7 @@ export function update<T extends DataStructure>(
     prevStructure: T | T[],
     nextStructure: T | T[],
     parentStructure?: T,
+    startIndex: number = 0,
 ) {
     const prevStructures = concat(prevStructure || []);
     const nextStructures = concat(nextStructure || []);
@@ -88,7 +89,7 @@ export function update<T extends DataStructure>(
         (prev, next, index) => {
             next.element = prev.element;
             if (next.ref) {
-                next.ref(next, index);
+                next.ref(next, startIndex + index);
             }
             updateElement(prev, next);
             update(
